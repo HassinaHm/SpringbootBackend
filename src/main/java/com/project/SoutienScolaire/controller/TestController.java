@@ -20,7 +20,6 @@ public class TestController {
     @Autowired
     private TestService testService;
 
-    @Autowired
     private ImageService imageService;
 
     @GetMapping
@@ -34,21 +33,15 @@ public class TestController {
     }
 
     @PostMapping
-    public Test saveTest(@RequestBody Test test, @RequestParam("file") MultipartFile file) throws IOException {
+    public Test saveTest(@RequestPart("test") Test test, @RequestPart("file") MultipartFile file) throws IOException {
         // Save the image
         imageService.saveImage(file, test.getId());
 
         // Set the image name in the Test object
-        test.setImage(test.getId() + "_" + file.getOriginalFilename());
+        test.setImage(file.getOriginalFilename());
 
         // Save the Test object
         return testService.saveTest(test);
-    }
-
-    @GetMapping("/{id}/image/{imageName}")
-    public ResponseEntity<Resource> getImage(@PathVariable Long id, @PathVariable String imageName) {
-        Resource image = imageService.loadImage(id, imageName);
-        return ResponseEntity.ok().body(image);
     }
 
     @PutMapping("/{id}")
