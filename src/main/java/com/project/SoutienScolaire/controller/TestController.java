@@ -4,8 +4,7 @@ import com.project.SoutienScolaire.modele.Test;
 import com.project.SoutienScolaire.service.ImageService;
 import com.project.SoutienScolaire.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +18,7 @@ public class TestController {
 
     @Autowired
     private TestService testService;
-
+    @Autowired
     private ImageService imageService;
 
     @GetMapping
@@ -33,7 +32,18 @@ public class TestController {
     }
 
     @PostMapping
-    public Test saveTest(@RequestPart("test") Test test, @RequestPart("file") MultipartFile file) throws IOException {
+    public Test addTest(
+            @RequestParam("nom") String nom,
+            @RequestParam("prenom") String prenom,
+            @RequestParam("email") String email,
+            @RequestParam("file") MultipartFile file) throws IOException {
+
+        // Create a new Test object
+        Test test = new Test();
+        test.setNom(nom);
+        test.setPrenom(prenom);
+        test.setEmail(email);
+
         // Save the image
         imageService.saveImage(file, test.getId());
 
@@ -45,8 +55,30 @@ public class TestController {
     }
 
     @PutMapping("/{id}")
-    public Test updateTest(@PathVariable Long id, @RequestBody Test test) {
-        return testService.updateTest(id, test);
+    public Test updateTest(@PathVariable Long id,
+            @RequestParam("nom") String nom,
+            @RequestParam("prenom") String prenom,
+            @RequestParam("email") String email,
+            @RequestParam("file") MultipartFile file) throws IOException {
+        // Retrieve the existing test by ID
+        Test existingTest = testService.getTestById(id);
+        if (existingTest == null) {
+            throw new RuntimeException("Test not found with ID: " + id);
+        }
+
+        // Update the test data
+        existingTest.setNom(nom);
+        existingTest.setPrenom(prenom);
+        existingTest.setEmail(email);
+
+        // Save the updated image
+        imageService.saveImage(file, id);
+
+        // Update the image name in the Test object
+        existingTest.setImage(file.getOriginalFilename());
+
+        // Save and return the updated Test object
+        return testService.updateTest(id, existingTest);
     }
 
     @DeleteMapping("/{id}")

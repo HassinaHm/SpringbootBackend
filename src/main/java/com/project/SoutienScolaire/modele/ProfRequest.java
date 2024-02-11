@@ -7,25 +7,30 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Professeur {
+public class ProfRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
     private String prenom;
     private String email;
+    private String password;
+    @Column(nullable = true)
     private String imageUrl;
+    @Column(nullable = true)
     private Integer numberTel;
+    @Column(nullable = true)
     private Integer tarifh;
+    @Column(nullable = true)
     private String cv;
     @Column(nullable = true)
     private String message;
 
-    public Professeur() {
+    public ProfRequest() {
     }
 
-    public Professeur(String nom, String prenom, String email, String imageUrl, Integer numberTel, Integer tarifh,
-            String cv, String message) {
+    public ProfRequest(String nom, String prenom, String email, String imageUrl, Integer numberTel, Integer tarifh,
+            String cv, String message, String password) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -34,6 +39,7 @@ public class Professeur {
         this.tarifh = tarifh;
         this.cv = cv;
         this.message = message;
+        this.password = password;
     }
 
     public Long getId() {
@@ -108,12 +114,21 @@ public class Professeur {
         this.message = message;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Professeur{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
+                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", numberTel=" + numberTel +
