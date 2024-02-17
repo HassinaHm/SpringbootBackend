@@ -3,6 +3,7 @@ package com.project.SoutienScolaire.controller;
 import com.project.SoutienScolaire.modele.Etudiant;
 import com.project.SoutienScolaire.service.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,16 +25,19 @@ public class EtudiantController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public Etudiant saveEtudiant(@RequestBody Etudiant etudiant) {
         return etudiantService.saveEtudiant(etudiant);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public Etudiant updateEtudiant(@PathVariable Long id, @RequestBody Etudiant etudiant) {
         return etudiantService.updateEtudiant(id, etudiant);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteEtudiant(@PathVariable Long id) {
         etudiantService.deleteEtudiant(id);
     }
