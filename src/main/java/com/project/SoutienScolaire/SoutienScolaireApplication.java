@@ -1,13 +1,19 @@
 package com.project.SoutienScolaire;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import com.project.SoutienScolaire.modele.Role;
+import com.project.SoutienScolaire.dto.RegisterRequest;
+import com.project.SoutienScolaire.service.AuthenticationService;
 
 import jakarta.servlet.MultipartConfigElement;
 
 @SpringBootApplication
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class SoutienScolaireApplication {
 
 	public static void main(String[] args) {

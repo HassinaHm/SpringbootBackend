@@ -24,13 +24,13 @@ public class ProfRequest {
     @Column(nullable = true)
     private String cv;
     @Column(nullable = true)
-    private String message;
+    private String description;
 
     public ProfRequest() {
     }
 
     public ProfRequest(String nom, String prenom, String email, String imageUrl, Integer numberTel, Integer tarifh,
-            String cv, String message, String password) {
+            String cv, String description, String password) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -38,7 +38,7 @@ public class ProfRequest {
         this.numberTel = numberTel;
         this.tarifh = tarifh;
         this.cv = cv;
-        this.message = message;
+        this.description = description;
         this.password = password;
     }
 
@@ -106,12 +106,12 @@ public class ProfRequest {
         this.cv = cv;
     }
 
-    public String getMessage() {
-        return message;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getPassword() {
@@ -134,7 +134,7 @@ public class ProfRequest {
                 ", numberTel=" + numberTel +
                 ", tarifh=" + tarifh +
                 ", cv='" + cv + '\'' +
-                ", message='" + message + '\'' +
+                ", message='" + description + '\'' +
                 '}';
     }
 }

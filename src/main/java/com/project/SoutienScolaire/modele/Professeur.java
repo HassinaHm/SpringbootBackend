@@ -1,10 +1,16 @@
 package com.project.SoutienScolaire.modele;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Professeur {
@@ -15,27 +21,34 @@ public class Professeur {
     private String prenom;
     private String email;
     private String imageUrl;
+    private String matiere;
     private Integer numberTel;
     private Integer tarifh;
     private String cv;
     @Column(nullable = true)
     private String message;
 
+    @ManyToMany
+    @JoinTable(name = "professeur_matiere", joinColumns = @JoinColumn(name = "professeur_id"), inverseJoinColumns = @JoinColumn(name = "matiere_id"))
+    private Set<Matiere> matieres = new HashSet<>();
+
     public Professeur() {
     }
 
-    public Professeur(String nom, String prenom, String email, String imageUrl, Integer numberTel, Integer tarifh,
-            String cv, String message) {
+    public Professeur(String nom, String prenom, String email, String imageUrl, String matiere, Integer numberTel,
+            Integer tarifh, String cv, String message) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.imageUrl = imageUrl;
+        this.matiere = matiere;
         this.numberTel = numberTel;
         this.tarifh = tarifh;
         this.cv = cv;
         this.message = message;
     }
 
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -76,6 +89,14 @@ public class Professeur {
         this.imageUrl = imageUrl;
     }
 
+    public String getMatiere() {
+        return matiere;
+    }
+
+    public void setMatiere(String matiere) {
+        this.matiere = matiere;
+    }
+
     public Integer getNumberTel() {
         return numberTel;
     }
@@ -108,6 +129,14 @@ public class Professeur {
         this.message = message;
     }
 
+    public Set<Matiere> getMatieres() {
+        return matieres;
+    }
+
+    public void setMatieres(Set<Matiere> matieres) {
+        this.matieres = matieres;
+    }
+
     @Override
     public String toString() {
         return "Professeur{" +
@@ -116,6 +145,7 @@ public class Professeur {
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", matiere='" + matiere + '\'' +
                 ", numberTel=" + numberTel +
                 ", tarifh=" + tarifh +
                 ", cv='" + cv + '\'' +

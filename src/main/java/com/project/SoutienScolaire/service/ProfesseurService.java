@@ -16,6 +16,10 @@ public class ProfesseurService {
         return professeurRepository.findAll();
     }
 
+    public List<Professeur> getProfesseursByMatiereNom(String matiere) {
+        return professeurRepository.findByMatieresNom(matiere);
+    }
+
     public Professeur getProfesseurById(Long id) {
         return professeurRepository.findById(id).orElse(null);
     }
@@ -37,4 +41,5 @@ public class ProfesseurService {
     public void deleteProfesseur(Long id) {
         professeurRepository.deleteById(id);
     }
+
 }
