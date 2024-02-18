@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/etudiants")
+@RequestMapping("/api/etudiants")
 public class EtudiantController {
     @Autowired
     private EtudiantService etudiantService;
@@ -25,19 +25,16 @@ public class EtudiantController {
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ADMIN')")
     public Etudiant saveEtudiant(@RequestBody Etudiant etudiant) {
         return etudiantService.saveEtudiant(etudiant);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public Etudiant updateEtudiant(@PathVariable Long id, @RequestBody Etudiant etudiant) {
         return etudiantService.updateEtudiant(id, etudiant);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public void deleteEtudiant(@PathVariable Long id) {
         etudiantService.deleteEtudiant(id);
     }

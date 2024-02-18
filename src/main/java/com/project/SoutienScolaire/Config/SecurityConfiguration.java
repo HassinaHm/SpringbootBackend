@@ -31,6 +31,7 @@ public class SecurityConfiguration {
 
         private static final String[] WHITE_LIST_URL = { "/api/v1/auth/**",
                         "/api/v1/auth/register",
+                        "/api/v1/auth/authenticate",
                         "/v2/api-docs",
                         "/v3/api-docs",
                         "/v3/api-docs/**",
@@ -51,10 +52,25 @@ public class SecurityConfiguration {
                                 .csrf(AbstractHttpConfigurer::disable)
                                 .authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URL)
                                                 .permitAll()
-                                                .requestMatchers(GET, "/register").permitAll()
-                                                .requestMatchers(POST, "/register").permitAll()
+                                                .requestMatchers(POST, "/api/v1/auth/authenticate/**").permitAll()
+                                                .requestMatchers(GET, "/api/v1/auth/authenticate/**").permitAll()
+
+                                                .requestMatchers(POST, " /api/v1/auth/register/**").permitAll()
+                                                .requestMatchers(GET, " /api/v1/auth/register/**").permitAll()
+
+                                                .requestMatchers(POST, "/api/images/upload/**").permitAll()
+                                                .requestMatchers(POST, "/register/**").permitAll()
                                                 .requestMatchers(GET, "/api/professeurs/**").permitAll()
+                                                .requestMatchers(GET, "/api/etudiants/**").permitAll()
+                                                .requestMatchers(POST, "/api/etudiants/**").permitAll()
+                                                .requestMatchers(DELETE, "/api/etudiants/**").permitAll()
+                                                .requestMatchers(PUT, "/api/etudiants/**").permitAll()
+                                                .requestMatchers(POST, "/api/professeurs/**").permitAll()
+                                                .requestMatchers(DELETE, "/api/professeurs/**").permitAll()
+                                                .requestMatchers(PUT, "/api/professeurs/**").permitAll()
+                                                .requestMatchers(GET, "/api/images/**").permitAll()
                                                 .requestMatchers(GET, "/matieres/**").permitAll()
+                                                .requestMatchers(POST, "/matieres/**").permitAll()
                                                 .requestMatchers(GET, "/api/images/**").permitAll()
                                                 .requestMatchers("/api/v1/management/**")
                                                 .hasAnyRole(ADMIN.name(), MANAGER.name())

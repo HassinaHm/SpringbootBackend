@@ -1,36 +1,35 @@
 package com.project.SoutienScolaire.service;
 
-import com.project.SoutienScolaire.modele.Professeur;
-import com.project.SoutienScolaire.repository.ProfesseurRepository;
-
+import com.project.SoutienScolaire.modele.ProfRequest;
+import com.project.SoutienScolaire.repository.ProfRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ProfesseurService {
+public class ProfRequestService {
     @Autowired
-    private ProfesseurRepository professeurRepository;
+    private ProfRequestRepository professeurRepository;
 
-    public List<Professeur> getAllProfesseurs() {
+    public List<ProfRequest> getAllProfesseurs() {
         return professeurRepository.findAll();
     }
 
-    public List<Professeur> getProfesseursByMatiereNom(String matiere) {
+    public List<ProfRequest> getProfesseursByMatiereNom(String matiere) {
         return professeurRepository.findByMatieresNom(matiere);
     }
 
-    public Professeur getProfesseurById(Long id) {
+    public ProfRequest getProfesseurById(Long id) {
         return professeurRepository.findById(id).orElse(null);
     }
 
-    public Professeur saveProfesseur(Professeur professeur) {
+    public ProfRequest saveProfesseur(ProfRequest professeur) {
         return professeurRepository.save(professeur);
     }
 
-    public Professeur updateProfesseur(Long id, Professeur professeur) {
-        Professeur existingProfesseur = professeurRepository.findById(id)
+    public ProfRequest updateProfesseur(Long id, ProfRequest professeur) {
+        ProfRequest existingProfesseur = professeurRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Professeur non trouvé avec l'ID : " + id));
 
         existingProfesseur.setNom(professeur.getNom());

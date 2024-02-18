@@ -1,8 +1,8 @@
 package com.project.SoutienScolaire.controller;
 
-import com.project.SoutienScolaire.modele.Professeur;
-import com.project.SoutienScolaire.repository.ProfesseurRepository;
-import com.project.SoutienScolaire.service.ProfesseurService;
+import com.project.SoutienScolaire.modele.ProfRequest;
+import com.project.SoutienScolaire.repository.ProfRequestRepository;
+import com.project.SoutienScolaire.service.ProfRequestService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,39 +11,39 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/professeurs")
-public class ProfesseurController {
+@RequestMapping("/api/req/professeurs")
+public class ProfRequestController {
 
     @Autowired
-    private ProfesseurRepository professeurRepository;
+    private ProfRequestRepository professeurRepository;
     @Autowired
-    private ProfesseurService professeurService;
+    private ProfRequestService profRequestService;
 
     @GetMapping
-    public List<Professeur> getAllProfesseurs() {
+    public List<ProfRequest> getAllProfesseurs() {
         return professeurRepository.findAll();
     }
 
     @GetMapping("/matieres/{matiere}")
-    public ResponseEntity<List<Professeur>> getProfesseursByMatiereNom(@PathVariable String matiere) {
-        List<Professeur> professeurs = professeurService.getProfesseursByMatiereNom(matiere);
+    public ResponseEntity<List<ProfRequest>> getProfesseursByMatiereNom(@PathVariable String matiere) {
+        List<ProfRequest> professeurs = profRequestService.getProfesseursByMatiereNom(matiere);
         return ResponseEntity.ok(professeurs);
     }
 
     @PostMapping
-    public Professeur addProfesseur(@RequestBody Professeur professeur) {
+    public ProfRequest addProfesseur(@RequestBody ProfRequest professeur) {
         return professeurRepository.save(professeur);
     }
 
     @GetMapping("/{id}")
-    public Professeur getProfesseurById(@PathVariable Long id) {
+    public ProfRequest getProfesseurById(@PathVariable Long id) {
         return professeurRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Professeur not found with id: " + id));
     }
 
     @PutMapping("/{id}")
-    public Professeur updateProfesseur(@PathVariable Long id, @RequestBody Professeur professeurDetails) {
-        Professeur professeur = professeurRepository.findById(id)
+    public ProfRequest updateProfesseur(@PathVariable Long id, @RequestBody ProfRequest professeurDetails) {
+        ProfRequest professeur = professeurRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Professeur not found with id: " + id));
         professeur.setNom(professeurDetails.getNom());
         professeur.setPrenom(professeurDetails.getPrenom());
@@ -51,8 +51,9 @@ public class ProfesseurController {
         professeur.setImageUrl(professeurDetails.getImageUrl());
         professeur.setNumberTel(professeurDetails.getNumberTel());
         professeur.setTarifh(professeurDetails.getTarifh());
+        professeur.setMatiere(professeurDetails.getMatiere());
         professeur.setCv(professeurDetails.getCv());
-        professeur.setMessage(professeurDetails.getMessage());
+        professeur.setDescription(professeurDetails.getDescription());
         return professeurRepository.save(professeur);
     }
 

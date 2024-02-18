@@ -18,6 +18,8 @@ public class ProfRequest {
     @Column(nullable = true)
     private String imageUrl;
     @Column(nullable = true)
+    private String matiere;
+    @Column(nullable = true)
     private Integer numberTel;
     @Column(nullable = true)
     private Integer tarifh;
@@ -30,7 +32,7 @@ public class ProfRequest {
     }
 
     public ProfRequest(String nom, String prenom, String email, String imageUrl, Integer numberTel, Integer tarifh,
-            String cv, String description, String password) {
+            String cv, String matiere, String description, String password) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -38,6 +40,7 @@ public class ProfRequest {
         this.numberTel = numberTel;
         this.tarifh = tarifh;
         this.cv = cv;
+        this.matiere = matiere;
         this.description = description;
         this.password = password;
     }
@@ -106,6 +109,14 @@ public class ProfRequest {
         this.cv = cv;
     }
 
+    public void setMatiere(String matiere) {
+        this.matiere = matiere;
+    }
+
+    public String getMatiere() {
+        return matiere;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -133,8 +144,9 @@ public class ProfRequest {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", numberTel=" + numberTel +
                 ", tarifh=" + tarifh +
+                ", matiere=" + matiere +
                 ", cv='" + cv + '\'' +
-                ", message='" + description + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
