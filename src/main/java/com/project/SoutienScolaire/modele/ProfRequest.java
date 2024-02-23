@@ -27,12 +27,13 @@ public class ProfRequest {
     private String cv;
     @Column(nullable = true)
     private String description;
+    private String matieresNom;
 
     public ProfRequest() {
     }
 
     public ProfRequest(String nom, String prenom, String email, String imageUrl, Integer numberTel, Integer tarifh,
-            String cv, String matiere, String description, String password) {
+            String cv, String matiere, String description, String password, String matieresNom) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -43,6 +44,7 @@ public class ProfRequest {
         this.matiere = matiere;
         this.description = description;
         this.password = password;
+        this.matieresNom = matieresNom;
     }
 
     public Long getId() {
