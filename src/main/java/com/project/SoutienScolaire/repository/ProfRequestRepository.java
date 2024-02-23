@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProfRequestRepository extends JpaRepository<ProfRequest, Long> {
-    List<ProfRequest> findByMatiere(String matiere);
+    List<ProfRequest> findByMatieresNom(String matiere);
 
 }
