@@ -15,13 +15,13 @@ import java.util.List;
 public class ProfRequestController {
 
     @Autowired
-    private ProfRequestRepository professeurRepository;
+    private ProfRequestRepository profRequestRepository;
     @Autowired
     private ProfRequestService profRequestService;
 
     @GetMapping
     public List<ProfRequest> getAllProfesseurs() {
-        return professeurRepository.findAll();
+        return profRequestRepository.findAll();
     }
 
     @GetMapping("/matieres/{matiere}")
@@ -32,18 +32,18 @@ public class ProfRequestController {
 
     @PostMapping
     public ProfRequest addProfesseur(@RequestBody ProfRequest professeur) {
-        return professeurRepository.save(professeur);
+        return profRequestRepository.save(professeur);
     }
 
     @GetMapping("/{id}")
     public ProfRequest getProfesseurById(@PathVariable Long id) {
-        return professeurRepository.findById(id)
+        return profRequestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Professeur not found with id: " + id));
     }
 
     @PutMapping("/{id}")
     public ProfRequest updateProfesseur(@PathVariable Long id, @RequestBody ProfRequest professeurDetails) {
-        ProfRequest professeur = professeurRepository.findById(id)
+        ProfRequest professeur = profRequestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Professeur not found with id: " + id));
         professeur.setNom(professeurDetails.getNom());
         professeur.setPrenom(professeurDetails.getPrenom());
@@ -54,12 +54,12 @@ public class ProfRequestController {
         professeur.setMatiere(professeurDetails.getMatiere());
         professeur.setCv(professeurDetails.getCv());
         professeur.setDescription(professeurDetails.getDescription());
-        return professeurRepository.save(professeur);
+        return profRequestRepository.save(professeur);
     }
 
     @DeleteMapping("/{id}")
     public String deleteProfesseur(@PathVariable Long id) {
-        professeurRepository.deleteById(id);
+        profRequestRepository.deleteById(id);
         return "Professeur with id: " + id + " has been deleted successfully.";
     }
 
